@@ -1,7 +1,6 @@
 package httpserver
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -29,9 +28,21 @@ func (s *HTTPServer) getDishByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *HTTPServer) getDishesByTags(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf(r.URL.Query().Get("tag_ids"))
+	tagStr := r.URL.Query().Get("tag_ids")
 
-	tagIDsStr := strings.Split(r.URL.Query().Get("tag_ids"), ",")
+	tagIDsStr := strings.Split(tagStr, ",")
+
+	if tagStr == "" {
+		dishes, err := s.dishSrv.ListDishes()
+		if err != nil {
+			s.respondError(w, http.StatusInternalServerError, err)
+			return
+		}
+
+		s.respond(w, http.StatusOK, dishes)
+		return
+	}
+
 	tagIDs := make([]int, len(tagIDsStr))
 
 	for i, id := range tagIDsStr {

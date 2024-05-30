@@ -30,6 +30,9 @@ func (s *HTTPServer) newRouter(_ config.Config) *mux.Router {
 
 	api.HandleFunc("/auth/{provider}/callback", s.oauthCallback).Methods(http.MethodGet, http.MethodOptions)
 
+	api.HandleFunc("/oauth2callback", s.oauthCallback).Methods(http.MethodGet, http.MethodOptions)
+	api.HandleFunc("/refresh-token", s.refreshToken).Methods(http.MethodPost, http.MethodOptions)
+
 	api.HandleFunc("/status", s.getStatus).Methods(http.MethodGet, http.MethodOptions)
 
 	api.HandleFunc("/product", s.listProducts).Methods(http.MethodGet, http.MethodOptions)
@@ -37,7 +40,7 @@ func (s *HTTPServer) newRouter(_ config.Config) *mux.Router {
 	api.HandleFunc("/product", s.updateProduct).Methods(http.MethodPut, http.MethodOptions)
 	api.HandleFunc("/product/{product_id}", s.deleteProduct).Methods(http.MethodDelete, http.MethodOptions)
 
-	api.HandleFunc("/tag", s.listTags).Methods(http.MethodGet, http.MethodOptions)
+	authorized.HandleFunc("/tag", s.listTags).Methods(http.MethodGet, http.MethodOptions)
 	api.HandleFunc("/tag", s.createTag).Methods(http.MethodPost, http.MethodOptions)
 	api.HandleFunc("/tag", s.updateTag).Methods(http.MethodPut, http.MethodOptions)
 	api.HandleFunc("/tag/{tag_id}", s.getTagByID).Methods(http.MethodGet, http.MethodOptions)
@@ -45,12 +48,26 @@ func (s *HTTPServer) newRouter(_ config.Config) *mux.Router {
 
 	//api.HandleFunc("/dish", s.).Methods(http.MethodGet, http.MethodOptions)
 	api.HandleFunc("/dish/by_tag", s.getDishesByTags).Methods(http.MethodGet, http.MethodOptions)
-	api.HandleFunc("/dish", s.listDishes).Methods(http.MethodGet, http.MethodOptions)
+	api.HandleFunc("/dish", s.getDishesByTags).Methods(http.MethodGet, http.MethodOptions)
 	api.HandleFunc("/dish", s.createDish).Methods(http.MethodPost, http.MethodOptions)
 	api.HandleFunc("/dish", s.updateDish).Methods(http.MethodPut, http.MethodOptions)
 	api.HandleFunc("/dish/{dish_id}", s.getDishByID).Methods(http.MethodGet, http.MethodOptions)
 	api.HandleFunc("/dish/{dish_id}", s.deleteDish).Methods(http.MethodDelete, http.MethodOptions)
 	//api.HandleFunc("/dish-diet", s.AddDietToDish).Methods(http.MethodPost, http.MethodOptions)
+
+	authorized.HandleFunc("/card/clear", s.ClearCard).Methods(http.MethodDelete, http.MethodOptions)
+	authorized.HandleFunc("/card/exists", s.ItemExistsById).Methods(http.MethodGet, http.MethodOptions)
+	authorized.HandleFunc("/card", s.GetUsersCardByID).Methods(http.MethodGet, http.MethodOptions)
+	authorized.HandleFunc("/card", s.AddItemToCard).Methods(http.MethodPost, http.MethodOptions)
+	authorized.HandleFunc("/card", s.RemoveItemFromCard).Methods(http.MethodDelete, http.MethodOptions)
+	authorized.HandleFunc("/card", s.UpdateItemAmount).Methods(http.MethodPut, http.MethodOptions)
+
+	authorized.HandleFunc("/order", s.getMyOrders).Methods(http.MethodGet, http.MethodOptions)
+	authorized.HandleFunc("/order/all", s.getOrders).Methods(http.MethodGet, http.MethodOptions)
+	authorized.HandleFunc("/order", s.createOrder).Methods(http.MethodPost, http.MethodOptions)
+	authorized.HandleFunc("/order/{order_id}", s.GetOrderByID).Methods(http.MethodGet, http.MethodOptions)
+	//authorized.HandleFunc("/order/{order_id}", s.deleteOrder).Methods(http.MethodDelete, http.MethodOptions)
+	//authorized.HandleFunc("/order/{order_id}", s.updateOrder).Methods(http.MethodPut, http.MethodOptions)
 
 	authorized.HandleFunc("/profile/me", s.getMe).Methods(http.MethodGet, http.MethodOptions)
 	authorized.HandleFunc("/media/upload", s.uploadMedia).Methods(http.MethodPost, http.MethodOptions)

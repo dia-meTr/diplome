@@ -5,9 +5,9 @@ import "github.com/google/uuid"
 type Role string
 
 const (
-	RoleAdmin   Role = "admin"
-	RoleTeacher Role = "teacher"
-	RoleStudent Role = "student"
+	RoleAdmin   Role = "customer"
+	RoleTeacher Role = "admin"
+	RoleStudent Role = "delivery_man"
 )
 
 type User struct {
@@ -15,12 +15,5 @@ type User struct {
 	FirstName string    `json:"firstName"`
 	LastName  string    `json:"lastName"`
 	Email     string    `json:"email"`
-	AvatarURL string    `json:"avatarUrl"`
-	Address   string    `json:"address"`
-	Role      Role      `json:"role" bun:",nullzero"`
-}
-
-type FilterUserDTO struct {
-	Name    *string    `json:"name"`
-	GroupID *uuid.UUID `json:"groupID"`
+	UserRole  Role      `json:"role" bun:",nullzero"`
 }

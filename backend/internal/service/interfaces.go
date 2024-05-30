@@ -6,22 +6,20 @@ import (
 	"oss-backend/internal/models"
 
 	"github.com/google/uuid"
+	"golang.org/x/oauth2"
 )
 
 type Auth interface {
-	GenerateToken(ctx context.Context, user *models.User) (*models.UserCredentials, error)
-	Login(ctx context.Context, accessToken string) (*models.User, error)
+	GetOAuthConsentURL(ctx context.Context) string
+	ExchangeProvidersCode(ctx context.Context, code string) (*oauth2.Token, error)
+	RefreshToken(ctx context.Context, refreshToken string) (*oauth2.Token, error)
 }
 
 type User interface {
-	GetByID(ctx context.Context, userID uuid.UUID) (*models.User, error)
-	GetByEmail(ctx context.Context, email string) (*models.User, error)
-	//	ListTeachers(ctx context.Context) ([]models.Teacher, error)
-	//	ListStudents(ctx context.Context, filter models.FilterUserDTO) ([]models.Student, error)
-	//	ListStudentsByGroupID(ctx context.Context, groupID uuid.UUID) ([]models.Student, error)
-	//	InviteTeacher(ctx context.Context, dto *models.InviteTeacherDTO) error
-	//	InviteStudent(ctx context.Context, dto *models.InviteStudentDTO) error
-	Update(ctx context.Context, user *models.User) error
+	GetUserByID(ctx context.Context, id uuid.UUID) (*models.User, error)
+	GetUserByEmail(ctx context.Context, email string) (*models.User, error)
+	UserExistsByEmail(ctx context.Context, email string) (bool, error)
+	CreateUser(ctx context.Context, cur *models.User) error
 }
 
 type Product interface {
@@ -53,4 +51,23 @@ type Dish interface {
 	UpdateDish(ctx context.Context, dish *models.Dish) error
 	DeleteDish(ctx context.Context, dishID uuid.UUID) error
 	AddTagToDish(ctx context.Context, dishTag *models.DishTag) error
+}
+
+type Order interface {
+	GetOrderByID(ctx context.Context, orderID uuid.UUID) (*models.Order, error)
+	ListUsersOrders(ctx context.Context, userID uuid.UUID) ([]*models.Order, error)
+	ListOrders(ctx context.Context, deliveryDate string, orderStatus string) ([]*models.Order, error)
+	CreateOrder(ctx context.Context, order *models.Order) error
+	UpdateOrderStatus(ctx context.Context, orderID uuid.UUID, orderStatus string) error
+	DeleteOrder(ctx context.Context, orderID uuid.UUID) error
+}
+
+type ShoppingCard interface {
+	//GetShoppingCardByID(ctx context.Context, cardID uuid.UUID) (*models.ShoppingCard, error)
+	GetUsersCardByID(ctx context.Context, userID uuid.UUID) ([]*models.ShoppingCard, error)
+	AddItemToCard(ctx context.Context, userID uuid.UUID, dishID uuid.UUID) error
+	RemoveItemFromCard(ctx context.Context, userID uuid.UUID, dishID uuid.UUID) error
+	UpdateItemAmount(ctx context.Context, userID uuid.UUID, dishID uuid.UUID, amount int) error
+	ClearCard(ctx context.Context, userID uuid.UUID) error
+	ItemExistsById(ctx context.Context, userID uuid.UUID, dishID uuid.UUID) (int, error)
 }

@@ -14,6 +14,8 @@ type Repo interface {
 	Product() Product
 	Tag() Tag
 	Dish() Dish
+	Order() Order
+	ShoppingCart() ShoppingCard
 }
 
 type Auth interface {
@@ -23,15 +25,8 @@ type Auth interface {
 type User interface {
 	GetUserByID(ctx context.Context, id uuid.UUID) (*models.User, error)
 	GetUserByEmail(ctx context.Context, email string) (*models.User, error)
-	//	ListTeachers(ctx context.Context) ([]models.Teacher, error)
-	//	ListStudents(ctx context.Context, opts ...QueryBuilder) ([]models.Student, error)
-	//	ListStudentsByGroupID(ctx context.Context, groupID uuid.UUID) ([]models.Student, error)
-	//	ListStudentsByFacultyID(ctx context.Context, facultyID uuid.UUID) ([]models.Student, error)
-
 	CreateUser(ctx context.Context, user *models.User) error
-	//	CreateTeacher(ctx context.Context, teacher *models.Teacher) error
-	//	CreateStudent(ctx context.Context, student *models.Student) error
-
+	UserExistsByEmail(ctx context.Context, email string) (bool, error)
 	UpdateUser(ctx context.Context, user *models.User) error
 }
 
@@ -60,4 +55,25 @@ type Dish interface {
 	//ListDishesBySubject(ctx context.Context, subjectID uuid.UUID) ([]models.Dish, error)
 	AddTagToDish(ctx context.Context, dishTag *models.DishTag) error
 	GetDishesByTags(ctx context.Context, tagIDs []int) ([]models.Dish, error)
+}
+
+type Order interface {
+	GetOrderByID(ctx context.Context, orderID uuid.UUID) (*models.Order, error)
+	ListOrders(ctx context.Context) ([]*models.Order, error)
+	ListUsersOrders(ctx context.Context, userID uuid.UUID) ([]*models.Order, error)
+	ListOrdersByDateAndStatus(ctx context.Context, deliveryDate string, orderStatus string) ([]*models.Order, error)
+	ListOrdersByStatus(ctx context.Context, orderStatus string) ([]*models.Order, error)
+	CreateOrder(ctx context.Context, order *models.Order) error
+	UpdateOrderStatus(ctx context.Context, orderID uuid.UUID, orderStatus string) error
+	DeleteOrder(ctx context.Context, orderID uuid.UUID) error
+	AddDishesToOrder(ctx context.Context, orderDishes []models.OrderDish) error
+}
+
+type ShoppingCard interface {
+	GetUsersCartByID(ctx context.Context, userID uuid.UUID) ([]*models.ShoppingCard, error)
+	AddItemToCard(ctx context.Context, cardItem *models.ShoppingCard) error
+	RemoveItemFromCard(ctx context.Context, userID uuid.UUID, dishID uuid.UUID) error
+	UpdateItemAmount(ctx context.Context, userID uuid.UUID, dishID uuid.UUID, amount int) error
+	ClearCard(ctx context.Context, userID uuid.UUID) error
+	ItemExistsById(ctx context.Context, userID uuid.UUID, dishID uuid.UUID) (int, error)
 }

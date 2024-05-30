@@ -18,15 +18,6 @@ func (s *Service) GetDishByID(ctx context.Context, dishID uuid.UUID) (*models.Di
 	return dish, nil
 }
 
-//func (s *Service) ListDishesBySubject(ctx context.Context, subjectID uuid.UUID) ([]models.Dish, error) {
-//	dishes, err := s.repo.Dish().ListDishesBySubject(ctx, subjectID)
-//	if err != nil {
-//		return nil, fmt.Errorf("failed to list dishes: %v", err)
-//	}
-//
-//	return dishes, nil
-//}
-
 func (s *Service) GetDishesByTags(ctx context.Context, tagIDs []int) ([]models.Dish, error) {
 	dishes, err := s.repo.Dish().GetDishesByTags(ctx, tagIDs)
 	if err != nil {

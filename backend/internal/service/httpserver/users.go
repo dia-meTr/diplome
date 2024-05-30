@@ -9,7 +9,7 @@ import (
 func (s *HTTPServer) getMe(w http.ResponseWriter, r *http.Request) {
 	userID := r.Context().Value("user_id").(uuid.UUID)
 
-	user, err := s.userSrv.GetByID(r.Context(), userID)
+	user, err := s.userSrv.GetUserByID(r.Context(), userID)
 	if err != nil {
 		s.respondError(w, http.StatusInternalServerError, err)
 		return

@@ -20,12 +20,15 @@ type HTTPServer struct {
 	mediaSrv   service.Media
 	tagSrv     service.Tag
 	dishSrv    service.Dish
+	cardSrv    service.ShoppingCard
+	orderSrv   service.Order
 }
 
 func New(cfg config.Config, authSrv service.Auth,
 	userSrv service.User, mediaSrv service.Media,
-	productSrv service.Product,
-	tagSrv service.Tag, dishSrv service.Dish) *HTTPServer {
+	productSrv service.Product, tagSrv service.Tag,
+	dishSrv service.Dish, cardSrv service.ShoppingCard,
+	orderSrv service.Order) *HTTPServer {
 	server := &HTTPServer{
 		cfg:        cfg,
 		authSrv:    authSrv,
@@ -34,6 +37,8 @@ func New(cfg config.Config, authSrv service.Auth,
 		productSrv: productSrv,
 		tagSrv:     tagSrv,
 		dishSrv:    dishSrv,
+		cardSrv:    cardSrv,
+		orderSrv:   orderSrv,
 		googleOAuthCfg: &oauth2.Config{
 			RedirectURL:  cfg.Oauth.Google.RedirectURL,
 			ClientID:     cfg.Oauth.Google.ClientID,

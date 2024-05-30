@@ -29,6 +29,8 @@ func New(cfg config.Postgres) *Postgres {
 	}
 
 	db.RegisterModel((*models.DishTag)(nil))
+	db.RegisterModel((*models.OrderDish)(nil))
+	db.RegisterModel((*models.ShoppingCard)(nil))
 
 	return &Postgres{
 		db: db,

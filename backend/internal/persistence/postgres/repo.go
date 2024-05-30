@@ -21,3 +21,11 @@ func (p *Postgres) Tag() persistence.Tag {
 func (p *Postgres) Dish() persistence.Dish {
 	return p
 }
+
+func (p *Postgres) Order() persistence.Order {
+	return p
+}
+
+func (p *Postgres) ShoppingCart() persistence.ShoppingCard {
+	return p
+}

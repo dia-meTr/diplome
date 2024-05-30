@@ -11,7 +11,9 @@ type Dish struct {
 	Description string    `json:"description"`
 	Price       float64   `json:"price"`
 	Tags        []*Tag    `json:"dishTags" bun:"m2m:dish_tags,join:Dish=Tag"`
+	//Orders      []*Order  `json:"orders" bun:"m2m:order_dishes,join:Dish=Order"`
 	// DishProducts []*DishProduct `json:"dishProducts" bun:"m2m:dish_products,join:Dish=Product"`
+
 }
 
 type DishTag struct {

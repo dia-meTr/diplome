@@ -11,11 +11,13 @@ import (
 	"oss-backend/internal/persistence/postgres"
 	"oss-backend/internal/service/auth"
 	"oss-backend/internal/service/aws/media"
-	"oss-backend/internal/service/httpserver"
-	"oss-backend/internal/service/product"
-	"oss-backend/internal/service/user"
-	"oss-backend/internal/service/tag"
 	"oss-backend/internal/service/dish"
+	"oss-backend/internal/service/httpserver"
+	"oss-backend/internal/service/order"
+	"oss-backend/internal/service/product"
+	"oss-backend/internal/service/shoppingCard"
+	"oss-backend/internal/service/tag"
+	"oss-backend/internal/service/user"
 )
 
 // Injectors from wire.go:
@@ -27,14 +29,16 @@ func Up() (*Dependencies, error) {
 	}
 	configPostgres := getPostgresConfig(configConfig)
 	postgresPostgres := postgres.New(configPostgres)
-	service := auth.New(configConfig, postgresPostgres)
 	userService := user.New(postgresPostgres)
+	service := auth.New(configConfig, userService, postgresPostgres) 
 	mediaService, err := media.New(configConfig)
 	if err != nil {
 		return nil, err
 	}
 
 	productService := product.New(postgresPostgres)
+	cardService := shoppingCard.New(postgresPostgres)
+	orderService := order.New(postgresPostgres)
 
 	if err != nil {
 		return nil, err
@@ -42,7 +46,7 @@ func Up() (*Dependencies, error) {
 
 	tagService := tag.New(postgresPostgres)
 	dishService := dish.New(postgresPostgres)
-	httpServer := httpserver.New(configConfig, service, userService, mediaService, productService, tagService, dishService)
+	httpServer := httpserver.New(configConfig, service, userService, mediaService, productService, tagService, dishService, cardService, orderService)
 	dependencies := NewDependencies(configConfig, httpServer, service, userService, postgresPostgres)
 	return dependencies, nil
 }

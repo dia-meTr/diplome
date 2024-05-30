@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS dishes (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     name text NOT NULL,
     photo_url text,
-    description text
+    description text,
+    price float NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS dish_tags (

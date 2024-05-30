@@ -19,6 +19,7 @@ const configFilename = "config.json"
 type Config struct {
 	Address   string   `json:"address" default:":8080"`
 	JwtSecret string   `json:"jwt_secret" default:"my-totally-secret-key"`
+	JWT       JWT      `json:"jwt"`
 	Oauth     Oauth    `json:"oauth"`
 	Postgres  Postgres `json:"postgres"`
 	Redis     Redis    `json:"redis"`
@@ -69,6 +70,12 @@ type S3 struct {
 
 type SES struct {
 	SourceEmail string `json:"source_email"`
+}
+
+type JWT struct {
+	Secret           string `json:"secret"             envconfig:"JWT_SECRET"             default:"my-totally-secret-key"`
+	AccessExpiresIn  int    `json:"access_expires_in"  envconfig:"JWT_ACCESS_EXPIRES_IN"  default:"1"`
+	RefreshExpiresIn int    `json:"refresh_expires_in" envconfig:"JWT_REFRESH_EXPIRES_IN" default:"168"`
 }
 
 func New() (Config, error) {

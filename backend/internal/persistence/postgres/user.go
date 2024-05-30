@@ -36,6 +36,20 @@ func (p *Postgres) GetUserByEmail(ctx context.Context, email string) (*models.Us
 	return &user, nil
 }
 
+func (p *Postgres) UserExistsByEmail(ctx context.Context, email string) (bool, error) {
+	var user models.User
+
+	exists, err := p.db.NewSelect().
+		Model(&user).
+		Where("email = ?", email).
+		Exists(ctx)
+	if err != nil {
+		return false, p.err(err)
+	}
+
+	return exists, nil
+}
+
 func (p *Postgres) CreateUser(ctx context.Context, user *models.User) error {
 	_, err := p.db.NewInsert().
 		Model(user).

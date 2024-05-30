@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"context"
+	"fmt"
 
 	"oss-backend/internal/models"
 
@@ -36,13 +37,14 @@ func (p *Postgres) ListTags(ctx context.Context) ([]*models.Tag, error) {
 }
 
 func (p *Postgres) CreateTag(ctx context.Context, tag *models.Tag) error {
-	_, err := p.db.NewInsert().
+	ans, err := p.db.NewInsert().
 		Model(tag).
 		Returning("*").
 		Exec(ctx)
 	if err != nil {
 		return p.err(err)
 	}
+	fmt.Println(ans)
 
 	return nil
 }

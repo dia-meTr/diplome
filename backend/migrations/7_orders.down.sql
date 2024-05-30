@@ -1,5 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS notification_templates;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS orders_dishes;
 
 COMMIT;
