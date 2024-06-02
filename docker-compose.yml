@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgres://oss:svXsnZVVUUybzNwgdVGWJpgYFzchBw@postgres:5432/oss
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: "shop2"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+    ports:
+      - "5432:5432"
+    volumes:
+#      - pgdata:/var/lib/postgresql/data
+      - ./dataset:/docker-entrypoint-initdb.d
+#    command: /bin/bash -c "until pg_isready -U ${POSTGRES_USER} -p 5432; do sleep 1; done; psql -U ${POSTGRES_USER} -d shop2 -f initialize_db.sql'"
+
+volumes:
+  pgdata:
+  redisdata:

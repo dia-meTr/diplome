@@ -5,14 +5,19 @@
         name: 'dishdetail',
         params: { id: dish.id },
       }"
-      class="thumbnail-parent">
+      class="dishcard-parent">
       <div
-        class="thumbnail-child"
+        class="dishcard-child"
         :style="{ backgroundImage: `url(${ dish.photoUrl })` }"></div>
     </RouterLink>
     <p class="product-title text-center">
       {{ dish.name }}
     </p>
+    <my-button
+      class="btn btn-primary"
+      @click="addToCart(dish)">
+      Add to Cart
+    </my-button>
   </div>
 </template>
 
@@ -32,15 +37,15 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.thumbnail-parent {
+.dishcard-parent {
   width: 13em; 
   height: 13em;
   margin-bottom: 3em;
-  &:hover .thumbnail-child,
-  &:focus .thumbnail-child {
+  &:hover .dishcard-child,
+  &:focus .dishcard-child {
     transform: scale(1.1);
   }
-  .thumbnail-child {
+  .dishcard-child {
     width: 100%;
     height: 100%;
     background-color: white;
@@ -51,7 +56,7 @@ export default {
 }
 
 @media only screen and (min-width: 1540px) {
-  .thumbnail-parent {
+  .dishcard-parent {
     width: 230px; 
     height: 230px;
   }
