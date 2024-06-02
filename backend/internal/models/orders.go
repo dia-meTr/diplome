@@ -20,7 +20,7 @@ type Order struct {
 	OrderDate       string      `json:"orderDate" bun:",nullzero"`
 	DeliveryDate    string      `json:"deliveryDate" bun:",nullzero"`
 	DeliveryAddress string      `json:"deliveryAddress"`
-	OrderStatus     OrderStatus `json:"orderStatus"`
+	OrderStatus     OrderStatus `json:"orderStatus"` // New, In progress, Ready, Delivered
 }
 
 type OrderDish struct {

@@ -15,7 +15,7 @@ import (
 	"oss-backend/internal/service/httpserver"
 	"oss-backend/internal/service/order"
 	"oss-backend/internal/service/product"
-	"oss-backend/internal/service/shoppingCard"
+	"oss-backend/internal/service/shoppingcart"
 	"oss-backend/internal/service/tag"
 	"oss-backend/internal/service/user"
 )
@@ -37,7 +37,7 @@ func Up() (*Dependencies, error) {
 	}
 
 	productService := product.New(postgresPostgres)
-	cardService := shoppingCard.New(postgresPostgres)
+	cardService := shoppingcart.New(postgresPostgres)
 	orderService := order.New(postgresPostgres)
 
 	if err != nil {

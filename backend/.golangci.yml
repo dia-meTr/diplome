@@ -1,0 +1,21 @@
+linters:
+  enable:
+    - gosimple
+    - govet
+    - gocyclo
+    - godot
+    - misspell
+    - revive
+  disable:
+    - unused
+    - errcheck
+    - staticcheck
+run:
+  timeout: 5m
+issues:
+  exclude:
+    - "error return value not checked"
+  exclude-rules:
+    - linters:
+        - gocyclo
+      text: "is complex"

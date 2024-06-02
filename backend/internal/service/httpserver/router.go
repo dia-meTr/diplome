@@ -40,7 +40,7 @@ func (s *HTTPServer) newRouter(_ config.Config) *mux.Router {
 	api.HandleFunc("/product", s.updateProduct).Methods(http.MethodPut, http.MethodOptions)
 	api.HandleFunc("/product/{product_id}", s.deleteProduct).Methods(http.MethodDelete, http.MethodOptions)
 
-	authorized.HandleFunc("/tag", s.listTags).Methods(http.MethodGet, http.MethodOptions)
+	api.HandleFunc("/tag", s.listTags).Methods(http.MethodGet, http.MethodOptions)
 	api.HandleFunc("/tag", s.createTag).Methods(http.MethodPost, http.MethodOptions)
 	api.HandleFunc("/tag", s.updateTag).Methods(http.MethodPut, http.MethodOptions)
 	api.HandleFunc("/tag/{tag_id}", s.getTagByID).Methods(http.MethodGet, http.MethodOptions)
@@ -56,7 +56,7 @@ func (s *HTTPServer) newRouter(_ config.Config) *mux.Router {
 	//api.HandleFunc("/dish-diet", s.AddDietToDish).Methods(http.MethodPost, http.MethodOptions)
 
 	authorized.HandleFunc("/card/clear", s.ClearCard).Methods(http.MethodDelete, http.MethodOptions)
-	authorized.HandleFunc("/card/exists", s.ItemExistsById).Methods(http.MethodGet, http.MethodOptions)
+	authorized.HandleFunc("/card/exists", s.ItemExistsByID).Methods(http.MethodGet, http.MethodOptions)
 	authorized.HandleFunc("/card", s.GetUsersCardByID).Methods(http.MethodGet, http.MethodOptions)
 	authorized.HandleFunc("/card", s.AddItemToCard).Methods(http.MethodPost, http.MethodOptions)
 	authorized.HandleFunc("/card", s.RemoveItemFromCard).Methods(http.MethodDelete, http.MethodOptions)

@@ -7,7 +7,7 @@ import (
 type Dish struct {
 	ID          uuid.UUID `json:"id" bun:",pk,type:uuid,default:uuid_generate_v4()"`
 	Name        string    `json:"name"`
-	PhotoUrl    string    `json:"photoUrl"`
+	PhotoURL    string    `json:"photoUrl"`
 	Description string    `json:"description"`
 	Price       float64   `json:"price"`
 	Tags        []*Tag    `json:"dishTags" bun:"m2m:dish_tags,join:Dish=Tag"`
