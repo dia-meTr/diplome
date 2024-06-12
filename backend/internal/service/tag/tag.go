@@ -4,11 +4,9 @@ import (
 	"context"
 
 	"oss-backend/internal/models"
-
-	"github.com/google/uuid"
 )
 
-func (s *Service) GetTagByID(id uuid.UUID) (*models.Tag, error) {
+func (s *Service) GetTagByID(id int) (*models.Tag, error) {
 	ctx := context.Background()
 
 	return s.repo.Tag().GetTagByID(ctx, id)
@@ -32,7 +30,7 @@ func (s *Service) UpdateTag(tag *models.Tag) error {
 	return s.repo.Tag().UpdateTag(ctx, tag)
 }
 
-func (s *Service) DeleteTag(id uuid.UUID) error {
+func (s *Service) DeleteTag(id int) error {
 	ctx := context.Background()
 
 	return s.repo.Tag().DeleteTag(ctx, id)

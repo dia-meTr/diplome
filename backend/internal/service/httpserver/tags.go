@@ -2,15 +2,15 @@ package httpserver
 
 import (
 	"net/http"
+	"strconv"
 
 	"oss-backend/internal/models"
 
-	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 )
 
 func (s *HTTPServer) getTagByID(w http.ResponseWriter, r *http.Request) {
-	tagID, err := uuid.Parse(mux.Vars(r)["tag_id"])
+	tagID, err := strconv.Atoi(mux.Vars(r)["tag_id"])
 	if err != nil {
 		s.respondError(w, http.StatusBadRequest, err)
 		return
@@ -68,7 +68,7 @@ func (s *HTTPServer) updateTag(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *HTTPServer) deleteTag(w http.ResponseWriter, r *http.Request) {
-	tagID, err := uuid.Parse(mux.Vars(r)["tag_id"])
+	tagID, err := strconv.Atoi(mux.Vars(r)["tag_id"])
 	if err != nil {
 		s.respondError(w, http.StatusBadRequest, err)
 		return

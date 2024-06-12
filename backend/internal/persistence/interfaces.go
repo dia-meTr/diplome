@@ -40,10 +40,10 @@ type Product interface {
 
 type Tag interface {
 	ListTags(ctx context.Context) ([]*models.Tag, error)
-	GetTagByID(ctx context.Context, tagID uuid.UUID) (*models.Tag, error)
+	GetTagByID(ctx context.Context, tagID int) (*models.Tag, error)
 	CreateTag(ctx context.Context, tag *models.Tag) error
 	UpdateTag(ctx context.Context, tag *models.Tag) error
-	DeleteTag(ctx context.Context, tagID uuid.UUID) error
+	DeleteTag(ctx context.Context, tagID int) error
 }
 
 type Dish interface {

@@ -5,11 +5,9 @@ import (
 	"fmt"
 
 	"oss-backend/internal/models"
-
-	"github.com/google/uuid"
 )
 
-func (p *Postgres) GetTagByID(ctx context.Context, tagID uuid.UUID) (*models.Tag, error) {
+func (p *Postgres) GetTagByID(ctx context.Context, tagID int) (*models.Tag, error) {
 	var tag models.Tag
 
 	err := p.db.NewSelect().
@@ -62,7 +60,7 @@ func (p *Postgres) UpdateTag(ctx context.Context, tag *models.Tag) error {
 	return nil
 }
 
-func (p *Postgres) DeleteTag(ctx context.Context, tagID uuid.UUID) error {
+func (p *Postgres) DeleteTag(ctx context.Context, tagID int) error {
 	_, err := p.db.NewDelete().
 		Model(&models.Tag{}).
 		Where("id = ?", tagID).

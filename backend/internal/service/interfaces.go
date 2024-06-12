@@ -35,11 +35,11 @@ type Media interface {
 }
 
 type Tag interface {
-	GetTagByID(id uuid.UUID) (*models.Tag, error)
+	GetTagByID(id int) (*models.Tag, error)
 	ListTags() ([]*models.Tag, error)
 	CreateTag(tag *models.Tag) error
 	UpdateTag(tag *models.Tag) error
-	DeleteTag(id uuid.UUID) error
+	DeleteTag(id int) error
 }
 
 type Dish interface {
