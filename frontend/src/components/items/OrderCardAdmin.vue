@@ -1,11 +1,11 @@
 <template>
     <div class="order-card">
         <div class="order-card-header">
-            <h3>Order Details</h3>
-            <p>Status: {{ order.status }}</p>
+            <h3>Деталі замовлення</h3>
+            <p>Статус: {{ order.status }}</p>
         </div>
         <div class="order-card-body">
-            
+            <div class="order-card-body-items">
                 <div v-for="dish in order.dishes" :key="dish.id">
                     <div class="dish-info">
                         <img :src="dish.photo" :alt="dish.name" />
@@ -16,7 +16,8 @@
                         </div>
                     </div>
                 </div>
-            
+                <my-button @click="changeStatus">Змінити статус</my-button>
+            </div>
         </div>
     </div>
 </template>
@@ -48,7 +49,11 @@ export default {
 }
 
 .order-card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
+    
 }
 
 .dish-info {

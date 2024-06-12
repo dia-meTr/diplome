@@ -1,51 +1,52 @@
 <template>
-  <header
-    id="header"
-    class="flex-center-vertically">
-    <div class="container">
-      <div class="flex-center-vertically product-detail">
+    <header class="header">
         <!--<img
           class="logo"
           src="../assets/logo.png"
           alt="logo"
           @click="$router.push({ name: 'mainpage'})" /> -->
-        <div class="link-container">
           <template v-if="!isLogIn">
             <!--<RouterLink to="/signup">
               Реєстрація
             </RouterLink> -->
-            <span class="menu-divider"> | </span>
-            <RouterLink to="/signin">
+            <RouterLink to="/signin"  class="headerLink">
               Увійти
             </RouterLink>
           </template>
           <template v-else>
-            <template v-if="isAdmin">
-              <RouterLink to="/admin/orders">
-                AdminPage
-              </RouterLink>
-              <span class="menu-divider"> | </span>
-            
-              <RouterLink to="/mycart">
-                Моя корзина
-              </RouterLink>
-              <span class="menu-divider"> | </span>
+            <div class="headerLinksContainer">
+              <template v-if="isAdmin">
+                <RouterLink to="/admin/orders" class="headerLink">
+                  Керування замовленнями
+                </RouterLink>
+                <RouterLink to="/admin/dishes" class="headerLink">
+                  Керування стравами
+                </RouterLink>
+                <RouterLink to="/admin/tags" class="headerLink">
+                  Керування тегами
+                </RouterLink>
+                <RouterLink to="/admin/products" class="headerLink">
+                  Керування продуктами
+                </RouterLink>
+              </template>
+
+                <RouterLink to="/mycart" class="headerLink">
+                  Моя корзина
+                </RouterLink>
+    
+                <RouterLink to="/myorders" class="headerLink">
+                  Мої замовлення
+                </RouterLink>
               
-              <RouterLink to="/myorders">
-                Мої замовлення
-              </RouterLink>
-              <span class="menu-divider"> | </span>
-            </template>
+            </div>
             <RouterLink
+              class="headerLink"
               :to="{name: 'mainpage'}"
               @click="signOut">
               Вийти
             </RouterLink>
           </template>
-        </div>
-      </div>
-    </div>
-  </header>
+    </header>
 </template>
 
 <script>
@@ -75,40 +76,31 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-header {
-  width: 100vw;
-  height: 10vh;
-  background-color: whitesmoke;
-  border: 0.1rem solid whitesmoke;
-  padding: 0.75em 0;
-  /*margin-bottom: 1em;*/
-  &.flex-center-vertically {
-    justify-content: space-between;
-  }
-  &.sticky {
-    position: fixed;
-    top: 0
-  }
-  .flex-center-vertically {
-    justify-content: space-between;
+<style scoped>
+
+.header {
+    width: 100%;
+    background-color: white;
+    padding: 30px 100px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    align-items: center;
   }
-  a, .menu-divider {
-    margin-right: 2rem;
-    &:last-child {
-      margin-right: 0;
-    }
+  
+  .headerLinksContainer {
+    flex-grow: 1;
+    display: flex;
+    gap: 40px;
   }
-  .container {
-    width: 1200px;
-    margin: 0 auto;
+  
+  .headerLink {
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s;
   }
-  @media only screen and (min-width: 1540px) {
-    .container {
-      width: 1366px;
-    }
-  }
-}
+  
+  .headerLink:hover {
+    color: #0B770F;
+   }
 </style>
+
+

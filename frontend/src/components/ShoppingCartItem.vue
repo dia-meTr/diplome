@@ -1,13 +1,13 @@
 <template>
     <div class="shopping-cart-item">
-        <img :style="{ backgroundImage: `url(${ dish.photoUrl })`}"
+        <img :src=dish.photoUrl
          :alt="dish.name" 
-         class="product-image" 
+         class="dish-image" 
          />
-        <div class="product-details">
-            <h3 class="product-name">{{ dish.name }}</h3>
-            <p class="product-price">{{ dish.price }}</p>
-            <p class="product-quantity">Quantity: {{ amount }}</p>
+        <div class="dish-details">
+            <h3 class="dish-name">{{ dish.name }}</h3>
+            <p class="dish-price">{{ dish.price }}</p>
+            <p class="dish-quantity">Quantity: {{ amount }}</p>
             <div class="quantity-buttons">
                 <button class="quantity-button" @click="decreaseQuantity">-</button>
                 <button class="quantity-button" @click="increaseQuantity">+</button>
@@ -44,28 +44,28 @@ export default {
     margin-bottom: 20px;
 }
 
-.product-image {
+.dish-image {
     width: 100px;
     height: 100px;
     object-fit: cover;
     margin-right: 20px;
 }
 
-.product-details {
+.dish-details {
     flex-grow: 1;
 }
 
-.product-name {
+.dish-name {
     font-size: 18px;
     margin-bottom: 5px;
 }
 
-.product-price {
+.dish-price {
     font-size: 16px;
     margin-bottom: 5px;
 }
 
-.product-quantity {
+.dish-quantity {
     font-size: 14px;
     color: gray;
 }

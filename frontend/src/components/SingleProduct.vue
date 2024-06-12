@@ -16,7 +16,7 @@
     <my-button
       class="btn btn-primary"
       @click="addToCart(dish)">
-      Add to Cart
+      Додати до кошика
     </my-button>
   </div>
 </template>

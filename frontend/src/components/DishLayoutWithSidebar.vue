@@ -34,7 +34,7 @@ export default {
     async fetchPosts() {
     try {
         this.isLoading = true
-        const response = await axios.get('http://0.0.0.0:8080/api/v1/dish')
+        const response = await axios.get(this.$hostname + '/api/v1/dish?tags=1')
         this.dishes = response.data
       } catch (e) {
         console.error(e)
@@ -61,13 +61,15 @@ export default {
 
 .sidebar {
     width: 250px;
+
     background-color: #fff;
-    border-right: 1px solid #ddd;
     
     box-sizing: border-box;
-    overflow-y: auto;
-    height: 100%; /* Takes the full height of the parent (dish-layout) */
-    position: relative;
+    overflow-y: hidden;
+    height: 1000px; /* Takes the full height of the parent (dish-layout) */
+    padding: auto;
+    
+    flex: 0 2 auto; /* Do not grow, do not shrink, do not allow to wrap */
 }
 
 .main-content {

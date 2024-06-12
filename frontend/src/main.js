@@ -6,6 +6,8 @@ import components from '@/components/UI'
 
 const app = createApp(App)
 
+app.config.globalProperties.$hostname = 'http://0.0.0.0:8080'
+
 components.forEach(component => {
     app.component(component.name, component)
 })

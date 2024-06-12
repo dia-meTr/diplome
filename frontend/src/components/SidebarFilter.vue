@@ -1,6 +1,6 @@
 
 <template>
-  <div class="sidebar">
+  
     <h2>Tags</h2>
     <div
       v-for="tag in allTags"
@@ -15,12 +15,13 @@
         <label for="c1-13">{{ tag.name }}</label>
       </div>
     </div>
-    <button
+    <my-button
       class="apply-button"
       @click="checkCheckbox">
-      Apply
-    </button>
-  </div>
+      Пошук
+    </my-button>
+  
+
 </template>
 
 <script>
@@ -57,6 +58,13 @@ export default {
 
 
 <style>
+
+.apply-button{
+  margin-top: 20px;
+  margin-left: 20px;
+
+}
+
 .sidebar h2 {
   margin-top: 0;
   margin-bottom: 20px;

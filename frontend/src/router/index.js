@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import PostIdPage from "@/views/PostIdPage";
 import MainPage from "@/views/MainPage";
 //import PostPageCompositionApi from "@/pages/PostPageCompositionApi";
+import ListPostsPage from "@/views/ListPostsPage.vue";
 
 import AdminDishes from "@/views/AdminDishes.vue";
 import AdminProducts from "@/views/AdminProducts.vue";
@@ -11,10 +12,13 @@ import AdminTags from "@/views/AdminTags.vue";
 import MyShoppingCart from "@/views/MyShoppingCart.vue";
 import MyOrders from "@/views/MyOrders.vue";
 
+import Home from '@/views/Home.vue';
+import OAuthCallback from '@/views/OAuthCallback.vue';
+
 
 const routes = [
     {
-        path: '/',
+        path: '/mainpage',
         name: 'mainpage',
         component: MainPage
     },  
@@ -51,8 +55,20 @@ const routes = [
         path: '/myorders',
         component: MyOrders
     },
-
-
+    {
+        path: '/posts',
+        component: ListPostsPage
+    },
+    {
+        path: '/',
+        name: 'Home',
+        component: Home
+    },
+  {
+        path: '/oauth2callback',
+        name: 'OAuthCallback',
+        component: OAuthCallback
+    }
 ]
 
 const router = createRouter({
